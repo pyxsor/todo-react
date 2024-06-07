@@ -1,35 +1,34 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import TodoForm from "./component/ToDoForm";
+import { getTodos, updateTodo } from "./database/todos";
+import Card from "./component/composable/Card.jsx";
+import Footer from "./component/layout/Footer.jsx";
+import ToDoContext from "./context/ToDoContext.jsx";
 
 function App() {
-  const [count, setCount] = useState(0)
+    const [todos, setTodos] = useState(getTodos());
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    const updateTodos = (id, todo) => {
+        setTodos(updateTodo(id, todo, todos));
+    };
+
+    return (
+        <ToDoContext.Provider value={{ updateTodos }}>
+            <main className="!px-5 pt-5">
+                <Card className="w-full mx-auto">
+                    <h2 className="text-center font-semibold text-xl tracking-wider uppercase text-dark-gray">
+                        Simple Todo with React
+                    </h2>
+                    <TodoForm
+                        {...{
+                            todos,
+                        }}
+                    />
+                    <Footer />
+                </Card>
+            </main>
+        </ToDoContext.Provider>
+    );
 }
 
-export default App
+export default App;
