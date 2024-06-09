@@ -8,7 +8,7 @@ import CustomButton from "./component/composable/CustomButton.jsx";
 import CreateToDoModal from "./component/CreateToDoModal";
 import EditToDoModal from "./component/EditToDoModal";
 import ConfirmDeleteModal from "./component/ConfirmDeleteModal";
-import {Button, CloseButton, ComboboxButton, MenuButton} from "@headlessui/react";
+import {Button} from "@headlessui/react";
 
 function App() {
     const [todos, setTodos] = useState(getTodos());
@@ -17,6 +17,7 @@ function App() {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [selectedTodo, setSelectedTodo] = useState(null);
     const [filter, setFilter] = useState("all");
+    const [searchText, setSearchText] = useState("");
 
     const updateTodos = (id, todo) => {
         setTodos(updateTodo(id, todo, todos));
@@ -65,7 +66,16 @@ function App() {
                             Unchecked
                         </Button>
                     </div>
-                    <TodoForm {...{todos, filter}} />
+                    <div className="flex justify-center gap-4 mt-4">
+                        <input
+                            type="text"
+                            placeholder="Search..."
+                            value={searchText}
+                            onChange={(e) => setSearchText(e.target.value)}
+                            className="px-4 py-2 rounded border border-gray-300 w-full max-w-lg"
+                        />
+                    </div>
+                    <TodoForm {...{todos, filter, searchText}} />
                     <Footer/>
                 </Card>
 
