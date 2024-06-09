@@ -1,16 +1,17 @@
 import TodoItem from "./ToDoItem.jsx";
-import { Fragment, useState, useContext } from "react";
-import { filterTodos, getTodos } from "../database/todos";
-import ToDoContext from "../context/ToDoContext.jsx";
+import {Fragment, useState} from "react";
+import {filterTodos, getTodos} from "../database/todos";
 import CreateToDoModal from "./CreateToDoModal";
-import EditTodoModal from "./EditToDoModal";
-import ConfirmDeleteModal from "./ConfirmDeleteModal";
-import CustomButton from "./composable/CustomButton.jsx";
 
-function TodoForm({ todos, filter }) {
-    const { setSelectedTodo, setShowEditModal, setShowDeleteModal } = useContext(ToDoContext);
+function TodoForm({todos, filter, searchText}) {
     const [showCreateModal, setShowCreateModal] = useState(false);
-    const filteredTodos = filter === "all" ? todos : filterTodos(filter, todos);
+    let filteredTodos = filter === "all" ? todos : filterTodos(filter, todos);
+
+    if (searchText) {
+        filteredTodos = filteredTodos.filter(todo =>
+            todo.text.toLowerCase().includes(searchText.toLowerCase())
+        );
+    }
 
     return (
         <div>
