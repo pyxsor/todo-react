@@ -1,16 +1,17 @@
 import Checkbox from "./composable/Checkbox.jsx";
-import { useContext } from "react";
-import { getDate } from "../helper/date";
+import {useContext} from "react";
+import {getDate} from "../helper/date";
 import ToDoContext from "../context/ToDoContext.jsx";
+import {PencilSquareIcon, TrashIcon} from "@heroicons/react/16/solid/index.js";
 
-function ToDoItem({ todo }) {
-    const { updateTodos, setSelectedTodo, setShowEditModal, setShowDeleteModal } = useContext(ToDoContext);
+function ToDoItem({todo}) {
+    const {updateTodos, setSelectedTodo, setShowEditModal, setShowDeleteModal} = useContext(ToDoContext);
 
     return (
         <li className="flex select-none items-center justify-between p-2 rounded-sm bg-light-gray shadow-custom  border border-primary/30 gap-2 ">
             <div className="flex items-center gap-1.5 w-full">
                 <Checkbox
-                    {...{ checked: Boolean(todo.isChecked) }}
+                    {...{checked: Boolean(todo.isChecked)}}
                     type="checkbox"
                     id={todo.id}
                     onChange={(event) =>
@@ -52,8 +53,9 @@ function ToDoItem({ todo }) {
                         setShowEditModal(true);
                     }}
                 >
-                    Edit
+                        <PencilSquareIcon className="h-5 w-5"/>
                 </button>
+
                 <button
                     className="text-red-500 hover:text-red-700"
                     onClick={() => {
@@ -61,8 +63,9 @@ function ToDoItem({ todo }) {
                         setShowDeleteModal(true);
                     }}
                 >
-                    Delete
+                    <TrashIcon className="h-5 w-5 text-red-500"/>
                 </button>
+
             </div>
         </li>
     );

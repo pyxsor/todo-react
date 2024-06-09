@@ -27,7 +27,7 @@ function TodoForm({todos, filter, searchText}) {
                 </h4>
             </div>
 
-            <ol className="space-y-2 overflow-auto h-[80vh] px-2 pb-5 relative">
+            <ol className="space-y-2 overflow-auto h-[60vh] px-2 pb-5 relative">
                 {filteredTodos.length > 0 ? (
                     filteredTodos.map((todo, id) => {
                         return (
