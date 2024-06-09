@@ -5,10 +5,12 @@ import ToDoContext from "../context/ToDoContext.jsx";
 import CreateToDoModal from "./CreateToDoModal";
 import EditTodoModal from "./EditToDoModal";
 import ConfirmDeleteModal from "./ConfirmDeleteModal";
+import CustomButton from "./composable/CustomButton.jsx";
 
-function TodoForm({ todos }) {
+function TodoForm({ todos, filter }) {
     const { setSelectedTodo, setShowEditModal, setShowDeleteModal } = useContext(ToDoContext);
     const [showCreateModal, setShowCreateModal] = useState(false);
+    const filteredTodos = filter === "all" ? todos : filterTodos(filter, todos);
 
     return (
         <div>
@@ -22,20 +24,14 @@ function TodoForm({ todos }) {
                         </span>
                     </span>
                 </h4>
-                {/*<button*/}
-                {/*    className="text-blue-500 hover:text-blue-700"*/}
-                {/*    onClick={() => setShowCreateModal(true)}*/}
-                {/*>*/}
-                {/*    Add Todo*/}
-                {/*</button>*/}
             </div>
 
             <ol className="space-y-2 overflow-auto h-[80vh] px-2 pb-5 relative">
-                {todos.length > 0 ? (
-                    todos.map((todo, id) => {
+                {filteredTodos.length > 0 ? (
+                    filteredTodos.map((todo, id) => {
                         return (
                             <Fragment key={id}>
-                                <TodoItem {...{ todo }} />
+                                <TodoItem {...{todo}} />
                             </Fragment>
                         );
                     })
