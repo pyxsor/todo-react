@@ -47,23 +47,25 @@ function ToDoItem({todo}) {
             </div>
             <div className="flex gap-2">
                 <button
+                    title="Edit todo"
                     className="text-blue-500 hover:text-blue-700"
                     onClick={() => {
                         setSelectedTodo(todo);
                         setShowEditModal(true);
                     }}
                 >
-                        <PencilSquareIcon className="h-5 w-5"/>
+                        <PencilSquareIcon className="h-5 w-5 border border-gray-400 rounded"/>
                 </button>
 
                 <button
+                    title="Delete todo"
                     className="text-red-500 hover:text-red-700"
                     onClick={() => {
                         setSelectedTodo(todo);
                         setShowDeleteModal(true);
                     }}
                 >
-                    <TrashIcon className="h-5 w-5 text-red-500"/>
+                        <TrashIcon className="h-5 w-5 text-red-500 border border-red-400 rounded"/>
                 </button>
 
             </div>
