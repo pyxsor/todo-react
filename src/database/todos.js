@@ -26,6 +26,24 @@ const updateTodo = (id, updatedTodo, todos) => {
     return newTodos.sort(sortingDefault);
 };
 
+const addTodo = (todo, todos) => {
+    const updatedTodos = [...todos, todo];
+    setTodos(updatedTodos);
+    return updatedTodos.sort(sortingDefault);
+};
+
+const deleteTodo = (id, todos) => {
+    const updatedTodos = todos.filter(todo => todo.id !== id);
+    setTodos(updatedTodos);
+    return updatedTodos.sort(sortingDefault);
+};
+
+const editTodo = (id, updatedTodo, todos) => {
+    const newTodos = todos.map(todo => todo.id === id ? { ...todo, ...updatedTodo } : todo);
+    setTodos(newTodos);
+    return newTodos.sort(sortingDefault);
+};
+
 const filterTodos = (filter, todos) => {
     if (!todos) return [];
     let newTodos;
@@ -44,4 +62,4 @@ const filterTodos = (filter, todos) => {
     return newTodos.sort(sortingDefault);
 };
 
-export { getTodos, updateTodo, filterTodos };
+export { getTodos, updateTodo, filterTodos, addTodo, deleteTodo, editTodo };
